@@ -1,0 +1,111 @@
+<html  ng-app="dpApp">
+    <head>
+        <title>Angular Google Maps | Filter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <!--script src="js/angular-ui-bootstrap.min.js"></script>
+        <script src="ang-module/dpApp.js"></script-->
+        <script src="controller.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js"> </script>
+        
+        <style>
+            body {
+              padding-top: 50px;
+            }
+            .starter-template {
+              padding: 40px 15px;
+              text-align: center;
+            }
+            .title{
+              text-align: center;
+            }
+
+
+            #map {
+                height:420px;
+                width:600px;
+            }
+            .infoWindowContent {
+                font-size:  14px !important;
+                border-top: 1px solid #ccc;
+                padding-top: 10px;
+            }
+            h2 {
+                margin-bottom:0;
+                margin-top: 0;
+            }
+        </style>    
+            
+    </head>
+    <body ng-controller="MainController as dp"  ng-init="dp.map()">
+        <!--dp.map("19.237842","72.854338")-->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Angular | Google Maps | Filter</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+            
+            </div><!--/.nav-collapse -->
+          </div>
+        </nav>
+
+    
+    
+   
+        
+    <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+                <div style="position: fixed;">
+                    <h3><span class="label label-info">Location: {{data[0]['hcity']}}</span></h3>
+                    <div class="checkbox" ng-repeat="x in data  | unique: 'hpincode'">
+                        <label><input type="checkbox"  ng-click="includePincode(x.hpincode)">{{x.harea}}</label>
+                    </div>
+                    
+                </div>
+              
+          </div>
+          
+          <div class="col-md-9">
+              <div class="row">
+                  <!--div id="googleMap" style="width:auto;height:380px;"></div-->
+                    <div id="map" style="width:auto;height:380px;"></div>
+                    <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
+                         <!--a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a-->
+                    </div>
+                  
+                  <div class="panel panel-default" style="margin-bottom:0px;"  ng-repeat="x in data | filter:Filter" >
+                      <div class="panel-body">
+                          <!--div class="col-md-2">
+                                 <!--img src="image.jpg" class="img-responsive" alt="image"  width="304" height="236"--> 
+                          </div-->
+
+                          <div class="col-md-6">
+                            <a>{{x.hname}}</a>
+                              <p><span class="glyphicon glyphicon-home" aria-hidden="true"></span>    {{x.harea+', '+x.hcity}}</p>
+                          </div>
+                          
+                          <div class="col-md-4">
+                          </div>
+
+
+                      </div>
+                  </div>
+              </div><!--row-->
+          </div>
+        
+        </div>
+    </div><!-- /.container -->
+       
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</html>
